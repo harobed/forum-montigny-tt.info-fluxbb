@@ -126,6 +126,7 @@ while ($cur_group = $db->fetch_assoc($result))
 			<thead>
 				<tr>
 					<th class="tcl" scope="col"><?php echo $lang_common['Username'] ?></th>
+					<th class="tcl" scope="col">Prénom / Nom</th>
 					<th class="tc2" scope="col"><?php echo $lang_common['Title'] ?></th>
 <?php if ($show_post_count): ?>					<th class="tc3" scope="col"><?php echo $lang_common['Posts'] ?></th>
 <?php endif; ?>					<th class="tcr" scope="col"><?php echo $lang_common['Registered'] ?></th>
@@ -144,7 +145,7 @@ if ($db->num_rows($result))
 		$user_ids[] = $cur_user_id;
 
 	// Grab the users
-	$result = $db->query('SELECT u.id, u.username, u.title, u.num_posts, u.registered, g.g_id, g.g_user_title FROM '.$db->prefix.'users AS u LEFT JOIN '.$db->prefix.'groups AS g ON g.g_id=u.group_id WHERE u.id IN('.implode(',', $user_ids).') ORDER BY '.$sort_by.' '.$sort_dir.', u.id ASC') or error('Unable to fetch user list', __FILE__, __LINE__, $db->error());
+	$result = $db->query('SELECT u.id, u.username, u.realname, u.title, u.num_posts, u.registered, g.g_id, g.g_user_title FROM '.$db->prefix.'users AS u LEFT JOIN '.$db->prefix.'groups AS g ON g.g_id=u.group_id WHERE u.id IN('.implode(',', $user_ids).') ORDER BY '.$sort_by.' '.$sort_dir.', u.id ASC') or error('Unable to fetch user list', __FILE__, __LINE__, $db->error());
 
 	while ($user_data = $db->fetch_assoc($result))
 	{
@@ -153,6 +154,7 @@ if ($db->num_rows($result))
 ?>
 				<tr>
 					<td class="tcl"><?php echo '<a href="profile.php?id='.$user_data['id'].'">'.pun_htmlspecialchars($user_data['username']).'</a>' ?></td>
+					<td class="tcl"><?php echo '<a href="profile.php?id='.$user_data['id'].'">'.$user_data['realname'].'</a>' ?></td>
 					<td class="tc2"><?php echo $user_title_field ?></td>
 <?php if ($show_post_count): ?>					<td class="tc3"><?php echo forum_number_format($user_data['num_posts']) ?></td>
 <?php endif; ?>
