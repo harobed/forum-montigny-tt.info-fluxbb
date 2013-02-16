@@ -303,7 +303,7 @@ function process_form(the_form)
 <?php if (count($languages) > 1): ?><div class="blockform">
 	<h2><span><?php echo $lang_install['Choose install language'] ?></span></h2>
 	<div class="box">
-		<form id="install" method="post" action="install.php">
+		<form id="install-lang" method="post" action="install.php">
 			<div class="inform">
 				<fieldset>
 					<legend><?php echo $lang_install['Install language'] ?></legend>
